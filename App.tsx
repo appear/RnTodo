@@ -13,10 +13,10 @@ const App = () => {
       <Header />
       <View style={styles.card}>
         <TextInput />
+        <ScrollView contentContainerStyle={styles.todoContainer}>
+          <Todo />
+        </ScrollView>
       </View>
-      <ScrollView>
-        <Todo />
-      </ScrollView>
     </View>
   );
 };
@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#F23657',
     alignItems: 'center',
   },
-
   card: {
     backgroundColor: '#fff',
     flex: 1,
@@ -48,6 +47,9 @@ const styles = StyleSheet.create({
         elevation: 3,
       },
     }),
+  },
+  todoContainer: {
+    alignItems: 'center',
   },
 });
 
