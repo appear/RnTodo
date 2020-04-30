@@ -1,24 +1,22 @@
-import React from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  StatusBar,
-  Dimensions,
-  Platform,
-} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, View, Dimensions, Platform, ScrollView} from 'react-native';
 
-const {width, height} = Dimensions.get('window');
+import Header from './src/components/header';
+import TextInput from './src/components/text-input';
+import Todo from './src/components/todo';
+
+const {width} = Dimensions.get('window');
 
 const App = () => {
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" />
-      <Text style={styles.title}>Rn Todo.</Text>
+      <Header />
       <View style={styles.card}>
-        <TextInput style={styles.input} placeholder="New To Do" />
+        <TextInput />
       </View>
+      <ScrollView>
+        <Todo />
+      </ScrollView>
     </View>
   );
 };
@@ -29,13 +27,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F23657',
     alignItems: 'center',
   },
-  title: {
-    color: '#fff',
-    fontSize: 30,
-    marginTop: 50,
-    fontWeight: '200',
-    marginBottom: 30,
-  },
+
   card: {
     backgroundColor: '#fff',
     flex: 1,
@@ -57,7 +49,6 @@ const styles = StyleSheet.create({
       },
     }),
   },
-  input: {},
 });
 
 export default App;
