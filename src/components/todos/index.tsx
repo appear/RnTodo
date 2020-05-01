@@ -1,19 +1,20 @@
 import React from 'react';
 import {View} from 'react-native';
+import {useSelector} from 'react-redux';
 
+import {RootState} from '../../store/types';
 import TodoItem from './todo';
-import {Todo} from '../../types';
 
-interface TodoProps {
-  todos: Todo[];
-}
+export default function Todos() {
+  const tt = useSelector((state: RootState) => {
+    console.log('state', state);
+  });
 
-export default function Todos({todos}: TodoProps) {
   return (
     <View>
-      {todos.map((todo, idx) => (
+      {/* {todos.map((todo, idx) => (
         <TodoItem todo={todo} key={idx} />
-      ))}
+      ))} */}
     </View>
   );
 }

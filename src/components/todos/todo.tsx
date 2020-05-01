@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Dimensions,
   StyleSheet,
+  TextInput,
 } from 'react-native';
 
 import {Todo} from '../../types';
@@ -24,7 +25,7 @@ export default function TodoItem({todo}: TodoProps) {
     setEditTodo({...todo});
   };
 
-  const isEditing = !!editTodo;
+  const handleEditText = (text) => {};
 
   return (
     <View style={styles.container}>
@@ -34,16 +35,28 @@ export default function TodoItem({todo}: TodoProps) {
             style={isDone ? styles.completedCircle : styles.uncompletedCircle}
           />
         </TouchableOpacity>
-        <Text
-          style={[
-            styles.text,
-            isDone ? styles.completedText : styles.uncompletedText,
-          ]}>
-          {isEditing && editTodo ? editTodo.text : text}
-        </Text>
+        {editTodo ? (
+          <TextInput
+            style={[
+              styles.input,
+              styles.text,
+              isDone ? styles.completedText : styles.uncompletedText,
+            ]}
+            value={editTodo.text}
+            multiline={true}
+          />
+        ) : (
+          <Text
+            style={[
+              styles.text,
+              isDone ? styles.completedText : styles.uncompletedText,
+            ]}>
+            {text}
+          </Text>
+        )}
       </View>
       <View>
-        {isEditing ? (
+        {editTodo ? (
           <View style={styles.actions}>
             <TouchableOpacity>
               <View style={styles.actionContainer}>
@@ -121,4 +134,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   actionText: {},
+  input: {
+    marginVertical: 15,
+  },
 });

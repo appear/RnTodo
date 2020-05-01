@@ -1,32 +1,27 @@
-import React, {useState} from 'react';
+import React from 'react';
+import {Provider} from 'react-redux';
 import {StyleSheet, View, Dimensions, Platform, ScrollView} from 'react-native';
 
+import store from './store';
 import Header from './components/header';
 import TextInput from './components/text-input';
 import Todos from './components/todos';
-import {Todo} from './types';
 
 const {width} = Dimensions.get('window');
 
 const App = () => {
-  const [todos, setTodos] = useState<Todo[]>([
-    {
-      id: Date.now(),
-      text: '리액트 공부하기',
-      isDone: false,
-    },
-  ]);
-
   return (
-    <View style={styles.container}>
-      <Header />
-      <View style={styles.card}>
-        <TextInput />
-        <ScrollView contentContainerStyle={styles.todoContainer}>
-          <Todos todos={todos} />
-        </ScrollView>
+    <Provider store={store}>
+      <View style={styles.container}>
+        <Header />
+        <View style={styles.card}>
+          <TextInput />
+          <ScrollView contentContainerStyle={styles.todoContainer}>
+            <Todos />
+          </ScrollView>
+        </View>
       </View>
-    </View>
+    </Provider>
   );
 };
 
