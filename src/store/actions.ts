@@ -1,5 +1,16 @@
-import {ADD_TODO, UPDATE_STATUS, UPDATE_TEXT, DELETE_TODO} from './constants';
+import {
+  ADD_TODO,
+  UPDATE_STATUS,
+  UPDATE_TEXT,
+  DELETE_TODO,
+  SET_TODOS,
+} from './constants';
 import {Todo} from '../types';
+
+export const setTodos = (payload: Todo[]) => ({
+  type: SET_TODOS,
+  payload,
+});
 
 export const addTodo = (text: string) => ({
   type: ADD_TODO,

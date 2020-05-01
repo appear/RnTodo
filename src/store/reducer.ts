@@ -1,25 +1,34 @@
 import {Todo} from '../types';
 import {Action} from './types';
-import {ADD_TODO, UPDATE_STATUS, UPDATE_TEXT, DELETE_TODO} from './constants';
+import {
+  ADD_TODO,
+  UPDATE_STATUS,
+  UPDATE_TEXT,
+  DELETE_TODO,
+  SET_TODOS,
+} from './constants';
 
 interface State {
   todos: Todo[];
   editTodo: Todo | null;
+  isInitial: boolean;
 }
 
 const INITIAL_VALUES: State = {
-  todos: [
-    {
-      id: 0,
-      text: '리액트 공부하기',
-      isDone: false,
-    },
-  ],
+  todos: [],
   editTodo: null,
+  isInitial: true,
 };
 
 function reducer(state = INITIAL_VALUES, action: Action) {
   switch (action.type) {
+    case SET_TODOS: {
+      return {
+        ...state,
+        todos: action.payload,
+        isInitial: false,
+      };
+    }
     case ADD_TODO: {
       const {text} = action.payload;
 

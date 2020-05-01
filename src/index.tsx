@@ -9,7 +9,7 @@ import Todos from './components/todos';
 
 const {width} = Dimensions.get('window');
 
-const App = () => {
+function App() {
   return (
     <Provider store={store}>
       <View style={styles.container}>
@@ -23,7 +23,7 @@ const App = () => {
       </View>
     </Provider>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
