@@ -7,8 +7,10 @@ import {
   StyleSheet,
   TextInput,
 } from 'react-native';
+import {useDispatch} from 'react-redux';
 
 import {Todo} from '../../types';
+import {updateText, deleteTodo, updateStatus} from '../../store/actions';
 
 const {width} = Dimensions.get('window');
 
@@ -18,19 +20,40 @@ interface TodoProps {
 
 export default function TodoItem({todo}: TodoProps) {
   const [editTodo, setEditTodo] = useState<Todo | null>(null);
+  const dispatch = useDispatch();
 
-  const {text, isDone} = todo;
+  const handleEdit = () => setEditTodo({...todo});
+  const handleUpdateEditText = (text: string) => {
+    if (!editTodo) {
+      return;
+    }
 
-  const handleEdit = () => {
-    setEditTodo({...todo});
+    setEditTodo({...editTodo, text});
   };
 
-  const handleEditText = (text) => {};
+  const handleDeleteTodo = () => {
+    dispatch(deleteTodo(todo.id));
+  };
+
+  const handleUpdateEdit = () => {
+    if (!editTodo) {
+      return;
+    }
+
+    dispatch(updateText(editTodo));
+    setEditTodo(null);
+  };
+
+  const handleUpdateStatus = () => {
+    dispatch(updateStatus(todo.id));
+  };
+
+  const {text, isDone} = todo;
 
   return (
     <View style={styles.container}>
       <View style={styles.column}>
-        <TouchableOpacity>
+        <TouchableOpacity onPressOut={handleUpdateStatus}>
           <View
             style={isDone ? styles.completedCircle : styles.uncompletedCircle}
           />
@@ -38,11 +61,12 @@ export default function TodoItem({todo}: TodoProps) {
         {editTodo ? (
           <TextInput
             style={[
-              styles.input,
               styles.text,
+              styles.input,
               isDone ? styles.completedText : styles.uncompletedText,
             ]}
             value={editTodo.text}
+            onChangeText={handleUpdateEditText}
             multiline={true}
           />
         ) : (
@@ -58,7 +82,7 @@ export default function TodoItem({todo}: TodoProps) {
       <View>
         {editTodo ? (
           <View style={styles.actions}>
-            <TouchableOpacity>
+            <TouchableOpacity onPressOut={handleUpdateEdit}>
               <View style={styles.actionContainer}>
                 <Text>✅</Text>
               </View>
@@ -71,7 +95,7 @@ export default function TodoItem({todo}: TodoProps) {
                 <Text>✏️</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPressOut={handleDeleteTodo}>
               <View style={styles.actionContainer}>
                 <Text>❌</Text>
               </View>

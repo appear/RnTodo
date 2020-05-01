@@ -1,4 +1,5 @@
 import {ADD_TODO, UPDATE_STATUS, UPDATE_TEXT, DELETE_TODO} from './constants';
+import {Todo} from '../types';
 
 export const addTodo = (text: string) => ({
   type: ADD_TODO,

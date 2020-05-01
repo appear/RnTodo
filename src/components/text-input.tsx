@@ -1,11 +1,17 @@
 import React, {useState} from 'react';
 import {TextInput, StyleSheet} from 'react-native';
+import {useDispatch} from 'react-redux';
+
+import {addTodo} from '../store/actions';
 
 export default function TextInputWrapper({}) {
-  const [text, setText] = useState();
+  const [text, setText] = useState('');
+  const dispatch = useDispatch();
 
-  const controlNewTodo = (text: string) => {
-    setText(text);
+  const handleText = (text: string) => setText(text);
+  const handleAddTodo = () => {
+    dispatch(addTodo(text));
+    setText('');
   };
 
   return (
@@ -13,10 +19,11 @@ export default function TextInputWrapper({}) {
       style={styles.input}
       placeholder="New To Do"
       value={text}
-      onChangeText={controlNewTodo}
+      onChangeText={handleText}
       placeholderTextColor="#999"
       returnKeyType="done"
       autoCorrect={false}
+      onSubmitEditing={handleAddTodo}
     />
   );
 }

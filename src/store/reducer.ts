@@ -4,12 +4,18 @@ import {ADD_TODO, UPDATE_STATUS, UPDATE_TEXT, DELETE_TODO} from './constants';
 
 interface State {
   todos: Todo[];
-  editTodo?: Todo | null;
+  editTodo: Todo | null;
 }
 
 const INITIAL_VALUES: State = {
-  todos: [],
-  editTodo: undefined,
+  todos: [
+    {
+      id: 0,
+      text: '리액트 공부하기',
+      isDone: false,
+    },
+  ],
+  editTodo: null,
 };
 
 function reducer(state = INITIAL_VALUES, action: Action) {
